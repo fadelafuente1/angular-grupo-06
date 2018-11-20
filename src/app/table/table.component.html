@@ -23,9 +23,9 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let curr of currencies | async;">
-        <td>{{ curr[0] }}</td>
-        <td>{{ curr[1] }}</td>
+      <tr *ngFor="let numberToTable of numbersToTable;">
+        <td>{{ numberToTable.baseNumber }}</td>
+        <td>{{ numberToTable.shiftNumber }}</td>
       </tr>
     </tbody>
   </table>
