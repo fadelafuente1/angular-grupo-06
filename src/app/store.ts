@@ -1,8 +1,7 @@
-import { ICurrency } from './currency';
+import { Currency } from './currency';
 import { CHANGE_BASE_CURRENCY, CHANGE_SHIFT_CURRENCY,
   INCREASE_CURRENCY, GET_CURRENCY, DECREASE_CURRENCY,
 } from './actions';
-import CurrencyService from './services/CurrencyService';
 
 export interface IAppState {
   baseCurrency: string;
