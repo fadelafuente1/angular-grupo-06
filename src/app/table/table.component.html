@@ -2,18 +2,32 @@
   (swipeleft)="onSwipeLeft($event)"
   (swiperight)="onSwipeRight($event)"
 >
+  
   <table class="table table-bordered table-style">
     <thead>
       <tr>
-        <th scope="col">{{ (baseCurrency | async) }}</th>
-        <th scope="col">{{ (shiftCurrency | async) }}</th>
+        <th>
+          <mat-form-field>
+            <mat-select [(value)]="baseCurrency">
+              <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </th>
+        <th>
+          <mat-form-field>
+            <mat-select [(value)]="shiftCurrency">
+              <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </th>
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let curr of currencies | async;">
-        <td>{{ curr[0] }}</td>
-        <td>{{ curr[1] }}</td>
+      <tr *ngFor="let numberToTable of numbersToTable;">
+        <td>{{ numberToTable.baseNumber }}</td>
+        <td>{{ numberToTable.shiftNumber }}</td>
       </tr>
     </tbody>
   </table>
 </div>
+<button (click)="onClickSwap()">Swap currencies</button>

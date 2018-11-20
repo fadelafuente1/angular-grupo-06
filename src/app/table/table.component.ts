@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
 import { IAppState, rootReducer, INITIAL_STATE } from '../store';
-import { GET_CURRENCY, INCREASE_CURRENCY, DECREASE_CURRENCY } from '../actions'
+import { GET_CURRENCY, INCREASE_CURRENCY, DECREASE_CURRENCY } from '../actions';
+import { CurrencyService } from '../services/currency.service';
 
 @Component({
   selector: 'app-table',
@@ -10,25 +11,43 @@ import { GET_CURRENCY, INCREASE_CURRENCY, DECREASE_CURRENCY } from '../actions'
 })
 
 export class TableComponent implements OnInit {
-  @select() baseCurrency;
-  @select() shiftCurrency;
+  baseCurrency;
+  // @select() shiftCurrency;
+  shiftCurrency;
+  baseCurrencyList;
+  numbersToTable;
   @select() currencies;
- 
 
-  constructor(private ngRedux: NgRedux<IAppState>) { 
-  }
+  constructor(private ngRedux: NgRedux<IAppState>, private api: CurrencyService) {}
 
   ngOnInit() {
-    // this.ngRedux.dispatch({type: GET_CURRENCY})
-    console.log(this.baseCurrency);
+    this.subscribeToCasts();
+    this.api.updateCurrencies(this.baseCurrency);
   }
 
   onSwipeLeft(e) {
-    console.log('bbbbbb')
+    console.log('bbbbbb');
   }
 
   onSwipeRight(e) {
-    console.log("aaaaa");
+    console.log('aaaaa');
+  }
+  onClickSwap(event) {
+    this.api.exchangeCurrencies();
+  }
+  subscribeToCasts() {
+    this.api.castBaseCurrency.subscribe(
+      baseCurrency => this.baseCurrency = baseCurrency
+    );
+    this.api.castShiftCurrency.subscribe(
+      shiftCurrency => this.shiftCurrency = shiftCurrency
+    );
+    this.api.castBaseCurrencyList.subscribe(
+      baseCurrencyList => this.baseCurrencyList = baseCurrencyList
+    );
+    this.api.CastNumbersToTable.subscribe(
+      numbersToTable => this.numbersToTable = numbersToTable
+    );
   }
 
 }
