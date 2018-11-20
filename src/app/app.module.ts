@@ -5,6 +5,10 @@ import { IAppState, rootReducer, INITIAL_STATE } from './store';
 
 import { AppComponent } from './app.component';
 import { TableComponent } from './table/table.component';
+import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {MatButtonModule, MatCheckboxModule} from '@angular/material';
+import {MatInputModule} from '@angular/material/input';
 
 @NgModule({
   declarations: [
@@ -13,7 +17,12 @@ import { TableComponent } from './table/table.component';
   ],
   imports: [
     BrowserModule,
-    NgReduxModule
+    NgReduxModule,
+    NgbModule,
+    BrowserAnimationsModule,
+    MatButtonModule,
+    MatCheckboxModule,
+    MatInputModule
   ],
   providers: [],
   bootstrap: [AppComponent]
