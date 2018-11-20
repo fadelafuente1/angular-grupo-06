@@ -1,3 +1,19 @@
-<p>
-  table works!
-</p>
+<div
+  (swipeleft)="onSwipeLeft($event)"
+  (swiperight)="onSwipeRight($event)"
+>
+  <table class="table table-bordered table-style">
+    <thead>
+      <tr>
+        <th scope="col">{{ (baseCurrency | async) }}</th>
+        <th scope="col">{{ (shiftCurrency | async) }}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let curr of currencies | async;">
+        <td>{{ curr[0] }}</td>
+        <td>{{ curr[1] }}</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
