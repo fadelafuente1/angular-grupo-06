@@ -3,42 +3,41 @@
   (swipeleft)="onSwipeLeft($event)"
   (swiperight)="onSwipeRight($event)"
 >
-  <div class="row">
-    <div class="col">
-      <table class="table table-bordered table-style">
-        <thead style="background-color: #33968f;">
-          <tr>
-            <th style="border: 2px solid">
-              <mat-form-field>
-                <mat-select [(value)]="baseCurrency" (selectionChange)="onChangeBaseCurrency($event)">
-                  <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </th>
-            <th style="border: 2px solid">
-              <mat-form-field>
-                <mat-select [(value)]="shiftCurrency" (selectionChange)="onChangeShiftCurrency($event)">
-                  <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </th>
-          </tr>
-        </thead>
-        <tbody *ngIf="!subrowShow else subrow">
-          <tr class="rowTable" style="border: 2px solid" *ngFor="let numberToTable of numbersToTable; let i = index">
-            <td class="td-col base-number"(click)="onClickRow(i)">{{ numberToTable.baseNumber }}</td>
-            <td class="td-col2 shift-number">{{ numberToTable.shiftNumber }}</td>
-          </tr>
-        </tbody>
-        <ng-template #subrow>
-          <tr *ngFor="let subrow of subrowShow;" (click)="onClickSubrow()">
-            <td class="td-col">{{ subrow.baseNumber }}</td>
-            <td class="td-col2">{{ subrow.shiftNumber }}</td>
-          </tr>
-        </ng-template>
-      </table>
-    </div>
-  </div>
+  <table class="table table-bordered table-style">
+    <thead style="background-color: #33968f;">
+      <tr>
+        <th style="border: 2px solid">
+          <mat-form-field>
+            <mat-select [(value)]="baseCurrency" (selectionChange)="onChangeBaseCurrency($event)">
+              <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </th>
+        <th style="border: 2px solid">
+          <mat-form-field>
+            <mat-select [(value)]="shiftCurrency" (selectionChange)="onChangeShiftCurrency($event)">
+              <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
+            </mat-select>
+          </mat-form-field>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr class="rowTable" style="border: 2px solid" *ngFor="let numberToTable of numbersToTable; let i = index">
+        <app-row [numberToTable]="numberToTable" [index]="i"></app-row>
+      </tr>
+    </tbody>
+    
+    
+    <ng-template #subrow>
+      <tbody>
+        <tr *ngFor="let subrow of subrowShow;" (click)="onClickSubrow()">
+          <td class="td-col">{{ subrow.baseNumber }}</td>
+          <td class="td-col2">{{ subrow.shiftNumber }}</td>
+        </tr>
+      </tbody>
+    </ng-template>
+  </table>
   <div class="row">
     <button class="col-4 btn btn-info" (click)="onClickIncrease()"> Aumentar</button>
     <button class="col-4 btn btn-info" (click)="onClickSwap()">Swap</button>

@@ -1,0 +1,29 @@
+th {
+  text-align: center;
+}
+
+td {
+  text-align: center;
+}
+
+.td-col {
+  background-color: #d5f1e6;
+  border: 2px solid
+}
+
+.td-col2 {
+  background-color: #8a847e;
+  border: 2px solid
+}
+
+.box {
+  display: flex;
+  justify-content: space-between;
+}
+.container {
+  max-width: 100%!important;
+}
+.base-number:hover{
+  cursor: pointer;
+  background-color: #33968f;
+}
