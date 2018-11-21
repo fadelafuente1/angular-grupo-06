@@ -36,7 +36,6 @@ export class TableComponent implements OnInit {
 
   onClickSwap(event) {
     this.api.exchangeCurrenciesAndUpdateNumbers();
-    console.log(this.subrowShow);
   }
   onChangeBaseCurrency(selectedCurrency) {
     this.api.setBaseCurrency(selectedCurrency.value);
