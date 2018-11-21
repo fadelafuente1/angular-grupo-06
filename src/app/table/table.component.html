@@ -8,26 +8,34 @@
       <tr>
         <th>
           <mat-form-field>
-            <mat-select [(value)]="baseCurrency">
+            <mat-select [(value)]="baseCurrency" (selectionChange)="onChangeBaseCurrency($event)">
               <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
             </mat-select>
           </mat-form-field>
         </th>
         <th>
           <mat-form-field>
-            <mat-select [(value)]="shiftCurrency">
+            <mat-select [(value)]="shiftCurrency" (selectionChange)="onChangeShiftCurrency($event)">
               <mat-option *ngFor="let currency of baseCurrencyList" [value]="currency">{{currency}}</mat-option>
             </mat-select>
           </mat-form-field>
         </th>
       </tr>
     </thead>
-    <tbody>
-      <tr *ngFor="let numberToTable of numbersToTable;">
-        <td>{{ numberToTable.baseNumber }}</td>
+    <tbody *ngIf="!subrowShow else subrow">
+      <tr *ngFor="let numberToTable of numbersToTable; let i = index">
+        <td (click)="onClickRow(i)">{{ numberToTable.baseNumber }}</td>
         <td>{{ numberToTable.shiftNumber }}</td>
       </tr>
     </tbody>
+    <ng-template #subrow>
+      <tr *ngFor="let subrow of subrowShow;" (click)="onClickSubrow()">
+        <td>{{ subrow.baseNumber }}</td>
+        <td>{{ subrow.shiftNumber }}</td>
+      </tr>
+    </ng-template>
   </table>
 </div>
 <button (click)="onClickSwap()">Swap currencies</button>
+<button (click)="onClickIncrease()"> Aumentar</button>
+<button (click)="onClickDecrease()">Disminuir</button>

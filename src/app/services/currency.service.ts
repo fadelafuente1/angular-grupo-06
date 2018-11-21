@@ -13,10 +13,12 @@ export class CurrencyService {
   private shiftCurrency = new BehaviorSubject('EUR');
   private baseCurrencyList = new BehaviorSubject([]);
   private numbersToTable = new BehaviorSubject([]);
+  private subrowShow = new BehaviorSubject(null);
   castBaseCurrencyList = this.baseCurrencyList.asObservable();
   CastNumbersToTable = this.numbersToTable.asObservable();
   castBaseCurrency = this.baseCurrency.asObservable();
   castShiftCurrency = this.shiftCurrency.asObservable();
+  castSubrowShow = this.subrowShow.asObservable();
   currentShiftCurrencyAmount;
   calculatedCurrencies = {};
   firstTableNumber = 1;
@@ -26,7 +28,11 @@ export class CurrencyService {
     this.apiUrl = 'https://api.exchangeratesapi.io';
   }
 
-  updateCurrencies(baseCurrency: string) {
+  updateCurrencies() {
+    if (this.calculatedCurrencies[this.baseCurrency.value]){
+
+    }
+    const baseCurrency = this.baseCurrency.value;
     this.getCurrency(baseCurrency).subscribe(
       response => {
         this.loadBaseCurrencyList(response.rates);
@@ -56,13 +62,38 @@ export class CurrencyService {
   setNumbersToTable(numbersToTable) {
     this.numbersToTable.next(numbersToTable);
   }
-  exchangeCurrencies() {
+  increasePowerOf10() {
+    this.powerOf10Number += 1;
+    this.loadNumbersToTable();
+    this.addSubrowToNumbersToTable();
+  }
+  decreasePowerOf10() {
+    this.powerOf10Number -= 1;
+    this.loadNumbersToTable();
+    this.addSubrowToNumbersToTable();
+  }
+  exchangeCurrenciesAndUpdateNumbers() {
+    this.exchangeCurrencies();
+    this.checkCurrenciesAvailable();
+  }
+  setSubrowShow(subrowShow) {
+    this.subrowShow.next(subrowShow);
+  }
+  checkCurrenciesAvailable() {
+    if (!this.calculatedCurrencies || !this.calculatedCurrencies[this.baseCurrency.value]) {
+      return this.updateCurrencies();
+    }
+    this.loadCurrentShiftCurrencyAmount();
+    this.loadNumbersToTable();
+    this.addSubrowToNumbersToTable();
+  }
+
+  private exchangeCurrencies() {
     const newShiftCurrency = this.baseCurrency.value;
     const newBaseCurrency = this.shiftCurrency.value;
     this.setShiftCurrency(newShiftCurrency);
     this.setBaseCurrency(newBaseCurrency);
   }
-
   private getCurrency(baseCurrency: string): Observable<any> {
     const url =  `${this.apiUrl}/latest?base=${baseCurrency}`;
     return this.http.get(url).pipe(catchError(this.errorHandler));
