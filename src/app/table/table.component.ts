@@ -16,13 +16,14 @@ export class TableComponent implements OnInit {
   shiftCurrency;
   baseCurrencyList;
   numbersToTable;
+  subrowShow;
   @select() currencies;
 
   constructor(private ngRedux: NgRedux<IAppState>, private api: CurrencyService) {}
 
   ngOnInit() {
     this.subscribeToCasts();
-    this.api.updateCurrencies(this.baseCurrency);
+    this.api.updateCurrencies();
   }
 
   onSwipeLeft(e) {
@@ -32,9 +33,38 @@ export class TableComponent implements OnInit {
   onSwipeRight(e) {
     console.log('aaaaa');
   }
+
   onClickSwap(event) {
-    this.api.exchangeCurrencies();
+    this.api.exchangeCurrenciesAndUpdateNumbers();
+    console.log(this.subrowShow);
   }
+  onChangeBaseCurrency(selectedCurrency) {
+    this.api.setBaseCurrency(selectedCurrency.value);
+    this.api.checkCurrenciesAvailable();
+  }
+  onChangeShiftCurrency(selectedCurrency) {
+    this.api.setShiftCurrency(selectedCurrency.value);
+    this.api.checkCurrenciesAvailable();
+  }
+
+  onClickRow(index) {
+    let subrowShow = this.subrowShow;
+    subrowShow = subrowShow ? subrowShow = null : this.numbersToTable[index].subrowNumbers;
+    this.api.setSubrowShow(subrowShow);
+  }
+
+  onClickSubrow() {
+    this.api.setSubrowShow(null);
+  }
+
+  onClickIncrease() {
+    this.api.increasePowerOf10();
+  }
+
+  onClickDecrease() {
+    this.api.decreasePowerOf10();
+  }
+
   subscribeToCasts() {
     this.api.castBaseCurrency.subscribe(
       baseCurrency => this.baseCurrency = baseCurrency
@@ -47,6 +77,9 @@ export class TableComponent implements OnInit {
     );
     this.api.CastNumbersToTable.subscribe(
       numbersToTable => this.numbersToTable = numbersToTable
+    );
+    this.api.castSubrowShow.subscribe(
+      subrowShow => this.subrowShow = subrowShow
     );
   }
 
