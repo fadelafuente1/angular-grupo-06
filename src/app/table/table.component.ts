@@ -23,11 +23,19 @@ export class TableComponent implements OnInit {
   }
 
   onSwipeLeft(e) {
-    this.api.decreasePowerOf10();
+    this.api.exchangeCurrenciesAndUpdateNumbers();
   }
 
   onSwipeRight(e) {
+    this.api.exchangeCurrenciesAndUpdateNumbers();
+  }
+  onSwipeUp(e) {
+    console.log('arriba');
     this.api.increasePowerOf10();
+  }
+  onSwipeDown(e) {
+    console.log('abajo');
+    this.api.decreasePowerOf10();
   }
 
   onClickSwap(event) {
