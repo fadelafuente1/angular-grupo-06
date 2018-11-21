@@ -3,7 +3,6 @@
   (swipeleft)="onSwipeLeft($event)"
   (swiperight)="onSwipeRight($event)"
 >
-  <div class="row"><h1 style="text-align: center;">Cuckoorrency</h1></div>
   <div class="row">
     <div class="col">
       <table class="table table-bordered table-style">
@@ -26,9 +25,9 @@
           </tr>
         </thead>
         <tbody *ngIf="!subrowShow else subrow">
-          <tr style="border: 2px solid" *ngFor="let numberToTable of numbersToTable; let i = index">
-            <td class="td-col"(click)="onClickRow(i)">{{ numberToTable.baseNumber }}</td>
-            <td class="td-col2">{{ numberToTable.shiftNumber }}</td>
+          <tr class="rowTable" style="border: 2px solid" *ngFor="let numberToTable of numbersToTable; let i = index">
+            <td class="td-col base-number"(click)="onClickRow(i)">{{ numberToTable.baseNumber }}</td>
+            <td class="td-col2 shift-number">{{ numberToTable.shiftNumber }}</td>
           </tr>
         </tbody>
         <ng-template #subrow>

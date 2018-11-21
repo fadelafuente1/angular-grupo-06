@@ -20,3 +20,10 @@ td {
   display: flex;
   justify-content: space-between;
 }
+.container {
+  max-width: 100%!important;
+}
+.base-number:hover{
+  cursor: pointer;
+  background-color: #33968f;
+}
