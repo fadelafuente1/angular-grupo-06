@@ -1,0 +1,6 @@
+{
+  "projects": {
+    "staging": "angular-grupo-6",
+    "default": "angular-grupo-6"
+  }
+}
