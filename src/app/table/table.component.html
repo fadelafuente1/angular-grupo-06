@@ -31,8 +31,8 @@
           </tr>
         </tbody>
         <ng-template #subrow>
-          <tr *ngFor="let subrow of subrowShow;" (click)="onClickSubrow()">
-            <td class="td-col">{{ subrow.baseNumber }}</td>
+          <tr *ngFor="let subrow of subrowShow; let i = index" (click)="onClickSubrow()">
+            <td class="td-col" [ngClass]="{'subrow-base-number': i==0 || i==10}">{{ subrow.baseNumber }}</td>
             <td class="td-col2">{{ subrow.shiftNumber }}</td>
           </tr>
         </ng-template>

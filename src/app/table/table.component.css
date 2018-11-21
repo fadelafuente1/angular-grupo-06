@@ -27,3 +27,13 @@ td {
   cursor: pointer;
   background-color: #33968f;
 }
+.subrow-base-number{
+  background-color: #33968f;
+  cursor: pointer;
+}
+.mat-form-field{
+  width: 100%;
+}
+.mat-select{
+  text-align: center;
+}
