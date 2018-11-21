@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { NgRedux, select } from '@angular-redux/store';
-import { IAppState, rootReducer, INITIAL_STATE } from '../store';
-import { GET_CURRENCY, INCREASE_CURRENCY, DECREASE_CURRENCY } from '../actions';
 import { CurrencyService } from '../services/currency.service';
 
 @Component({
@@ -19,7 +17,7 @@ export class TableComponent implements OnInit {
   subrowShow;
   @select() currencies;
 
-  constructor(private ngRedux: NgRedux<IAppState>, private api: CurrencyService) {}
+  constructor(private api: CurrencyService) {}
 
   ngOnInit() {
     this.subscribeToCasts();
@@ -27,11 +25,11 @@ export class TableComponent implements OnInit {
   }
 
   onSwipeLeft(e) {
-    console.log('bbbbbb');
+    this.api.decreasePowerOf10();
   }
 
   onSwipeRight(e) {
-    console.log('aaaaa');
+    this.api.increasePowerOf10();
   }
 
   onClickSwap(event) {
