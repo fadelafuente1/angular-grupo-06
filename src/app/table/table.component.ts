@@ -10,12 +10,10 @@ import { CurrencyService } from '../services/currency.service';
 
 export class TableComponent implements OnInit {
   baseCurrency;
-  // @select() shiftCurrency;
   shiftCurrency;
   baseCurrencyList;
   numbersToTable;
   subrowShow;
-  @select() currencies;
 
   constructor(private api: CurrencyService) {}
 
